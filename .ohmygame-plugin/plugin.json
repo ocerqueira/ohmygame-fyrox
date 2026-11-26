@@ -17,11 +17,11 @@
   "screenshots": [
     {
       "path": "./assets/screenshot-build.png",
-      "caption": "Check and run the game, with the cargo output kept in the panel."
+      "caption": "Check the game and read the cargo output in the panel."
     },
     {
       "path": "./assets/screenshot-environment.png",
-      "caption": "Every dependency, essential or optional, with its status and install path."
+      "caption": "Rust, linker, Clippy, Fyroxed and the project manager, each with its status and action."
     }
   ],
   "categories": ["engine", "templates", "agent"],

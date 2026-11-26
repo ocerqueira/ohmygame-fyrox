@@ -55,6 +55,7 @@ OhMyGame web preview.
 ## Links
 
 - Author: [ocerqueira](https://github.com/ocerqueira) · <https://ocerqueira.com>
+- Repository: <https://github.com/ocerqueira/ohmygame-fyrox>
 - Fyrox: <https://fyrox.rs> · Book: <https://fyrox-book.github.io/>
 - Fyrox API 1.0: <https://docs.rs/fyrox/1.0.1/fyrox/>
 
