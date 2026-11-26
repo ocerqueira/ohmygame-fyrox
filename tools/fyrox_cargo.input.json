@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "properties": {
+    "operation": {
+      "type": "string",
+      "enum": ["check", "build", "clippy"],
+      "description": "check: type-check without producing an executable (default). build: compile the game binary. clippy: run the Rust linter."
+    },
+    "release": {
+      "type": "boolean",
+      "description": "Build with optimizations. Only used by build; the first release build is slow."
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,13 @@
+[package]
+name = "game"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.87"
+
+[dependencies]
+fyrox = "1.0.1"
+
+# Build the engine optimized in debug builds, so the game runs at a usable
+# speed while your own code stays easy to debug. The first build is slow.
+[profile.dev.package."*"]
+opt-level = 3

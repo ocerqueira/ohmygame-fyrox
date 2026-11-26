@@ -1,0 +1,21 @@
+omg-log {
+  --omg-log-height: 260px;
+}
+
+#hint {
+  margin-top: 8px;
+}
+
+#hint-text {
+  display: block;
+}
+
+.note {
+  margin: 8px 0 0;
+  color: var(--text-secondary, #8b93a7);
+  font-size: var(--text-sm, 13px);
+}
+
+#facts omg-list-item {
+  --omg-list-item-description-wrap: wrap;
+}

@@ -1,0 +1,229 @@
+{
+  "$schema": "https://www.ohmygame.ai/schema/plugin-2.json",
+  "id": "personal/fyrox",
+  "version": "0.1.0",
+  "engines": {
+    "ohmygame-api": "^2.37.0"
+  },
+  "displayName": "%plugin.name%",
+  "description": "%plugin.description%",
+  "longDescription": "%plugin.longDescription%",
+  "examples": [
+    "Create a small 2D Fyrox game and make the character walk with the arrow keys",
+    "Add a spinning cube to my Fyrox scene and run the game to test it",
+    "Compile my Fyrox project and fix the errors the compiler reports"
+  ],
+  "icon": "./assets/icon.svg",
+  "screenshots": [
+    {
+      "path": "./assets/screenshot-build.png",
+      "caption": "Check and run the game, with the cargo output kept in the panel."
+    },
+    {
+      "path": "./assets/screenshot-environment.png",
+      "caption": "Every dependency, essential or optional, with its status and install path."
+    }
+  ],
+  "categories": ["engine", "templates", "agent"],
+  "keywords": ["fyrox", "rust", "engine", "3d", "2d", "cargo"],
+  "links": {
+    "homepage": "https://ocerqueira.com"
+  },
+  "configuration": {
+    "fyroxedPath": {
+      "type": "path",
+      "title": "%config.fyroxedPath.title%",
+      "description": "%config.fyroxedPath.description%"
+    },
+    "targetDir": {
+      "type": "path",
+      "title": "%config.targetDir.title%",
+      "description": "%config.targetDir.description%"
+    }
+  },
+  "activation": {
+    "files": ["data/scene.rgs"]
+  },
+  "capabilities": {
+    "native": true,
+    "project.files": "read",
+    "processes": ["cargo", "rustup", "rustc"]
+  },
+  "ui": {
+    "major": 1,
+    "accent": "#e2703a"
+  },
+  "entrypoints": {
+    "native": "./native/index.mjs"
+  },
+  "contributes": {
+    "skills": "./skills/",
+    "projectTypes": [
+      {
+        "id": "fyrox",
+        "title": "%type.title%",
+        "description": "%type.description%",
+        "icon": "./assets/icon.svg",
+        "template": "./template",
+        "recognize": {
+          "files": ["data/scene.rgs"]
+        },
+        "preview": "native",
+        "panels": ["fyrox"],
+        "ready": {
+          "command": "fyrox-doctor",
+          "panel": "fyrox"
+        }
+      },
+      {
+        "id": "fyrox-workspace",
+        "title": "%type.full.title%",
+        "description": "%type.full.description%",
+        "icon": "./assets/icon.svg",
+        "template": "./template-full",
+        "recognize": {
+          "files": ["game/src/lib.rs"]
+        },
+        "preview": "native",
+        "panels": ["fyrox"],
+        "ready": {
+          "command": "fyrox-doctor",
+          "panel": "fyrox"
+        }
+      }
+    ],
+    "panels": [
+      {
+        "id": "fyrox",
+        "title": "%panel.title%",
+        "icon": "./assets/icon.svg",
+        "area": "right",
+        "entry": "./panel/index.html"
+      }
+    ],
+    "tools": [
+      {
+        "name": "fyrox_cargo",
+        "description": "Compile the project's Fyrox (Rust) game with cargo and read the compiler output. The agent calls it after editing Rust code; the panel's Check button does the same for the person. Use operation \"check\" for errors after a change, \"build\" to produce an executable, \"clippy\" for lints. The first run compiles the whole engine and is slow.",
+        "input": "./tools/fyrox_cargo.input.json",
+        "timeoutSeconds": 1800
+      }
+    ],
+    "commands": [
+      {
+        "id": "open-fyrox",
+        "title": "%command.open%",
+        "icon": "./assets/icon.svg",
+        "run": {
+          "openPanel": "fyrox"
+        },
+        "slots": [
+          {
+            "slot": "project.menu"
+          },
+          {
+            "slot": "panel.toolbar"
+          }
+        ]
+      },
+      {
+        "id": "fyrox-doctor",
+        "title": "%command.doctor%",
+        "icon": "./assets/icon.svg",
+        "run": {
+          "native": "fyroxDoctor",
+          "changesFiles": false,
+          "timeoutSeconds": 120
+        },
+        "slots": [
+          {
+            "slot": "project.menu"
+          },
+          {
+            "slot": "panel.toolbar"
+          }
+        ]
+      },
+      {
+        "id": "fyrox-install",
+        "title": "%command.install%",
+        "icon": "./assets/icon.svg",
+        "run": {
+          "native": "fyroxInstall",
+          "changesFiles": false,
+          "timeoutSeconds": 1800
+        }
+      },
+      {
+        "id": "fyrox-set-editor",
+        "title": "%command.setEditor%",
+        "icon": "./assets/icon.svg",
+        "run": {
+          "native": "fyroxSetEditor",
+          "changesFiles": false
+        }
+      },
+      {
+        "id": "fyrox-find-editor",
+        "title": "%command.findEditor%",
+        "icon": "./assets/icon.svg",
+        "run": {
+          "native": "fyroxFindEditor",
+          "changesFiles": false,
+          "timeoutSeconds": 180
+        }
+      },
+      {
+        "id": "fyrox-open-editor",
+        "title": "%command.openEditor%",
+        "icon": "./assets/icon.svg",
+        "run": {
+          "native": "fyroxOpenEditor",
+          "changesFiles": false,
+          "timeoutSeconds": 120
+        },
+        "slots": [
+          {
+            "slot": "project.menu"
+          }
+        ]
+      },
+      {
+        "id": "fyrox-check",
+        "title": "%command.check%",
+        "icon": "./assets/icon.svg",
+        "run": {
+          "native": "fyroxCheck",
+          "changesFiles": false,
+          "timeoutSeconds": 1800
+        },
+        "slots": [
+          {
+            "slot": "project.menu"
+          },
+          {
+            "slot": "panel.toolbar"
+          }
+        ]
+      },
+      {
+        "id": "fyrox-play",
+        "title": "%command.play%",
+        "icon": "./assets/icon.svg",
+        "run": {
+          "native": "fyroxPlay",
+          "changesFiles": false,
+          "timeoutSeconds": 120
+        },
+        "slots": [
+          {
+            "slot": "project.toolbar"
+          },
+          {
+            "slot": "game.start"
+          }
+        ]
+      }
+    ]
+  }
+}

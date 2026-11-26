@@ -1,0 +1,4 @@
+/target
+*.log
+executor-wasm/pkg/
+executor-android/assets/

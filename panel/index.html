@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Fyrox</title>
+    <link rel="stylesheet" href="/_ohmygame/plugin-ui.css" />
+    <link rel="stylesheet" href="./panel.css" />
+    <script type="module" src="/_ohmygame/ui/1/index.js"></script>
+    <script type="module" src="./main.js"></script>
+  </head>
+  <body>
+    <omg-page id="page" heading="Fyrox" description="Projeto de jogo em Rust com a engine Fyrox 1.0.">
+      <omg-section id="project-section" heading="Projeto">
+        <omg-list id="facts">
+          <omg-list-item id="fact-engine" heading="Engine" description="Lendo o Cargo.toml…"></omg-list-item>
+          <omg-list-item id="fact-scene" heading="Cena inicial"></omg-list-item>
+          <omg-list-item id="fact-entry" heading="Entrada do jogo"></omg-list-item>
+        </omg-list>
+      </omg-section>
+
+      <omg-section id="build-section" heading="Compilar e jogar" description="O jogo abre numa janela própria; o preview do OhMyGame não mostra ele.">
+        <omg-status id="state" slot="actions" tone="neutral">Pronto</omg-status>
+        <omg-stack direction="row" gap="2" align="center" wrap>
+          <omg-command-button id="check" command="fyrox-check" variant="primary">Checar</omg-command-button>
+          <omg-command-button id="play" command="fyrox-play" variant="secondary">Rodar jogo</omg-command-button>
+        </omg-stack>
+
+        <omg-banner id="build-result" tone="info" heading="Resultado" style="display: none">
+          <span id="build-result-text"></span>
+          <omg-button id="build-result-action" slot="actions" variant="secondary" style="display: none">Abrir</omg-button>
+        </omg-banner>
+
+        <omg-log id="log" empty="Compile com Checar para ver a saída do cargo." follow></omg-log>
+      </omg-section>
+
+      <omg-section id="env-section" heading="Ambiente" description="Essenciais para compilar e rodar; opcionais para editar e exportar.">
+        <omg-command-button id="doctor" slot="actions" command="fyrox-doctor" variant="ghost">Verificar</omg-command-button>
+        <omg-banner id="env-result" tone="info" heading="Ambiente" style="display: none">
+          <span id="env-result-text"></span>
+        </omg-banner>
+        <omg-list id="deps">
+          <omg-list-item id="dep-rust" heading="Rust (cargo + rustc)">
+            <omg-status id="status-rust" tone="neutral">…</omg-status>
+            <omg-command-button
+              id="update-rust"
+              command="fyrox-install"
+              input='{"dependency":"rust-update"}'
+              variant="ghost"
+              style="display: none"
+              >Atualizar</omg-command-button
+            >
+            <omg-button id="download-rust" variant="secondary">rustup.rs</omg-button>
+            <omg-button id="copy-rust" variant="ghost" style="display: none">Copiar comando</omg-button>
+          </omg-list-item>
+
+          <omg-list-item id="dep-linker" heading="Linker C++">
+            <omg-status id="status-linker" tone="neutral">…</omg-status>
+            <omg-button id="download-linker" variant="secondary" style="display: none">visualstudio.com</omg-button>
+            <omg-button id="copy-linker" variant="ghost" style="display: none">Copiar comando</omg-button>
+          </omg-list-item>
+
+          <omg-list-item id="dep-clippy" heading="Clippy (linter)">
+            <omg-status id="status-clippy" tone="neutral">…</omg-status>
+            <omg-command-button
+              id="install-clippy"
+              command="fyrox-install"
+              input='{"dependency":"clippy"}'
+              variant="secondary"
+              style="display: none"
+              >Instalar</omg-command-button
+            >
+            <omg-command-button
+              id="update-clippy"
+              command="fyrox-install"
+              input='{"dependency":"rust-update"}'
+              variant="ghost"
+              style="display: none"
+              >Atualizar</omg-command-button
+            >
+          </omg-list-item>
+
+          <omg-list-item id="dep-editor" heading="Fyroxed (editor de cena)">
+            <omg-status id="status-editor" tone="neutral">…</omg-status>
+            <omg-command-button
+              id="open-editor"
+              command="fyrox-open-editor"
+              variant="secondary"
+              style="display: none"
+              >Abrir editor</omg-command-button
+            >
+            <omg-command-button
+              id="use-editor"
+              command="fyrox-set-editor"
+              variant="secondary"
+              style="display: none"
+              >Usar este</omg-command-button
+            >
+            <omg-command-button
+              id="clear-editor"
+              command="fyrox-set-editor"
+              input='{"clear":true}'
+              variant="ghost"
+              style="display: none"
+              >Remover</omg-command-button
+            >
+            <omg-command-button
+              id="find-editor"
+              command="fyrox-find-editor"
+              variant="ghost"
+              >Procurar</omg-command-button
+            >
+            <omg-path id="editor-path" path="" style="display: none"></omg-path>
+            <omg-button id="download-editor" variant="secondary">Baixar</omg-button>
+          </omg-list-item>
+
+          <omg-list-item id="dep-manager" heading="Fyrox project manager">
+            <omg-status id="status-manager" tone="neutral">…</omg-status>
+            <omg-path id="manager-path" path="" style="display: none"></omg-path>
+            <omg-command-button
+              id="install-manager"
+              command="fyrox-install"
+              input='{"dependency":"project-manager"}'
+              variant="secondary"
+              style="display: none"
+              >Instalar (cargo)</omg-command-button
+            >
+            <omg-command-button
+              id="update-manager"
+              command="fyrox-install"
+              input='{"dependency":"project-manager-update"}'
+              variant="ghost"
+              style="display: none"
+              >Atualizar</omg-command-button
+            >
+          </omg-list-item>
+        </omg-list>
+        <omg-disclosure id="gnu-alternative" heading="Sem Build Tools? Use o toolchain GNU" style="display: none">
+          <p id="gnu-text" class="note"></p>
+          <omg-stack direction="row" gap="2" wrap>
+            <omg-button id="copy-gnu" variant="secondary">Copiar comandos</omg-button>
+            <omg-button id="link-msys2" variant="ghost">msys2.org</omg-button>
+          </omg-stack>
+        </omg-disclosure>
+        <p id="env-note" class="note"></p>
+        <p id="build-dir" class="note"></p>
+        <omg-log id="install-log" empty="Nada instalado ainda." follow style="display: none"></omg-log>
+      </omg-section>
+
+      <omg-section id="docs-section" heading="Documentação" description="O manual cobre o editor, os scripts e a exportação.">
+        <omg-stack direction="row" gap="2" wrap>
+          <omg-button id="book" variant="ghost">Manual do Fyrox</omg-button>
+          <omg-button id="api" variant="ghost">API 1.0.1</omg-button>
+        </omg-stack>
+      </omg-section>
+    </omg-page>
+  </body>
+</html>

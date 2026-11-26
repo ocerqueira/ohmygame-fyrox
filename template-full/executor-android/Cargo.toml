@@ -1,0 +1,22 @@
+[package]
+name = "executor-android"
+version = "0.1.0"
+edition = "2021"
+
+[package.metadata.android]
+# Temporary storage for assets. The project exporter copies everything from the
+# data folder here and cargo-apk builds the apk with these assets.
+assets = "assets"
+strip = "strip"
+
+[package.metadata.android.sdk]
+min_sdk_version = 26
+target_sdk_version = 30
+max_sdk_version = 29
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+fyrox = { workspace = true }
+game = { path = "../game" }
